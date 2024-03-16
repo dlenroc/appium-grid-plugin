@@ -1,0 +1,66 @@
+{
+  "name": "@dlenroc/appium-grid-plugin",
+  "version": "0.1.1",
+  "description": "Easy way to register an Appium server as a node in Selenium 4 Grid",
+  "keywords": [
+    "grid",
+    "appium",
+    "plugin"
+  ],
+  "repository": "dlenroc/appium-grid-plugin",
+  "license": "MIT",
+  "author": "Corneliu Duplachi",
+  "type": "module",
+  "main": "dist/plugin.js",
+  "types": "src/plugin.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@appium/base-plugin": "^2.2.28",
+    "@appium/support": "^4.2.2",
+    "exit-hook": "^4.0.0",
+    "supertest": "^6.3.4",
+    "zeromq": "^6.0.0-beta.19"
+  },
+  "devDependencies": {
+    "@dlenroc/appium-roku-driver": "^0.11.1",
+    "@tsconfig/node20": "^20.1.2",
+    "@tsconfig/strictest": "^2.0.3",
+    "@types/supertest": "^6.0.2",
+    "typescript": "^5.4.2"
+  },
+  "peerDependencies": {
+    "appium": "^2.3.0"
+  },
+  "appium": {
+    "pluginName": "grid",
+    "mainClass": "GridPlugin",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "external-url": {
+          "type": "string",
+          "description": "Node external URL",
+          "default": "http://127.0.0.1:4723"
+        },
+        "publish-events": {
+          "type": "string",
+          "description": "Connection string for publishing events to the Selenium Grid Event Bus via ZeroMQ's PUB socket",
+          "default": "tcp://127.0.0.1:4443"
+        },
+        "registration-secret": {
+          "type": "string",
+          "description": "Node registration secret",
+          "default": ""
+        },
+        "stereotype": {
+          "type": "string",
+          "description": "Node stereotype(s), ex: [{ \"appium:platformName\": \"Android\" }]",
+          "default": "{}"
+        }
+      }
+    }
+  }
+}
