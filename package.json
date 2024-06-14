@@ -1,6 +1,6 @@
 {
   "name": "@dlenroc/appium-grid-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Easy way to register an Appium server as a node in Selenium 4 Grid",
   "keywords": [
     "grid",

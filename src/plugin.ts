@@ -4,7 +4,6 @@ import { logger } from '@appium/support';
 import { asyncExitHook } from 'exit-hook';
 import type { Application } from 'express';
 import crypto from 'node:crypto';
-import { IncomingMessage } from 'node:http';
 import os from 'node:os';
 import supertest from 'supertest';
 import zmq from 'zeromq';
@@ -17,24 +16,6 @@ export class GridPlugin extends BasePlugin {
   private static status: any;
 
   static {
-    /**
-     * Workaround for Appium that drop connections when an
-     * upgrade request with a non-websocket protocol is received.
-     *
-     * https://github.com/appium/appium/blob/47765747b66c5e0076f6ffe4619d6b98a42aee29/packages/base-driver/lib/express/websocket.js#L32
-     */
-    Object.defineProperty(IncomingMessage.prototype, 'upgrade', {
-      set() {},
-      get() {
-        return (
-          'connection' in this.headers &&
-          'upgrade' in this.headers &&
-          this.headers.connection.startsWith('Upgrade') &&
-          this.headers.upgrade.toLowerCase() == 'websocket'
-        );
-      },
-    });
-
     asyncExitHook(
       async () => {
         GridPlugin.status.availability = 'DOWN';
@@ -115,6 +96,7 @@ export class GridPlugin extends BasePlugin {
       availability: 'UP',
       externalUri: externalUri,
       heartbeatPeriod: 60_000,
+      sessionTimeout: 1_800_000,
       maxSessions: 1,
 
       slots: (Array.isArray(stereotype) ? stereotype : [stereotype]).map(
