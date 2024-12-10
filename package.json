@@ -1,7 +1,7 @@
 {
   "name": "@dlenroc/appium-grid-plugin",
-  "version": "0.1.2",
-  "description": "Easy way to register an Appium server as a node in Selenium 4 Grid",
+  "version": "0.2.0",
+  "description": "A plugin for registering Appium as a node in Selenium Grid 4",
   "keywords": [
     "grid",
     "appium",
@@ -11,25 +11,28 @@
   "license": "MIT",
   "author": "Corneliu Duplachi",
   "type": "module",
-  "main": "dist/plugin.js",
-  "types": "src/plugin.ts",
+  "main": "./dist/GridPlugin.js",
+  "types": "./dist/GridPlugin.d.ts",
   "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build"
+    "prepare": "pkgroll --clean-dist --sourcemap"
   },
   "dependencies": {
-    "@appium/base-plugin": "^2.2.28",
-    "@appium/support": "^4.2.2",
+    "@appium/base-plugin": "^2.2.50",
+    "@appium/support": "^6.0.0",
+    "@types/express": "^5.0.0",
+    "@types/lodash.ismatch": "^4.4.9",
+    "@types/supertest": "^6.0.2",
     "exit-hook": "^4.0.0",
-    "supertest": "^6.3.4",
-    "zeromq": "^6.0.0-beta.19"
+    "lodash.ismatch": "^4.4.0",
+    "supertest": "^7.0.0",
+    "systeminformation": "^5.23.8",
+    "zeromq": "^6.1.2"
   },
   "devDependencies": {
-    "@dlenroc/appium-roku-driver": "^0.11.1",
-    "@tsconfig/node20": "^20.1.2",
-    "@tsconfig/strictest": "^2.0.3",
-    "@types/supertest": "^6.0.2",
-    "typescript": "^5.4.2"
+    "@tsconfig/node20": "^20.1.4",
+    "@tsconfig/strictest": "^2.0.5",
+    "pkgroll": "^2.5.1",
+    "typescript": "^5.7.2"
   },
   "peerDependencies": {
     "appium": "^2.3.0"
@@ -50,15 +53,20 @@
           "description": "Connection string for publishing events to the Selenium Grid Event Bus via ZeroMQ's PUB socket",
           "default": "tcp://127.0.0.1:4443"
         },
-        "registration-secret": {
-          "type": "string",
-          "description": "Node registration secret",
-          "default": ""
-        },
         "stereotype": {
+          "appiumCliTransformer": "json",
           "type": "string",
-          "description": "Node stereotype(s), ex: [{ \"appium:platformName\": \"Android\" }]",
-          "default": "{}"
+          "description": "Node stereotype(s), ex: [{ \"appium:platformName\": \"Android\" }]"
+        },
+        "heartbeat-period": {
+          "type": "number",
+          "description": "Node heartbeat period in milliseconds",
+          "default": 60000
+        },
+        "session-timeout": {
+          "type": "number",
+          "description": "Node session timeout in milliseconds",
+          "default": 300000
         }
       }
     }
