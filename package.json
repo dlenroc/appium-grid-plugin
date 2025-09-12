@@ -1,6 +1,6 @@
 {
   "name": "@dlenroc/appium-grid-plugin",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A plugin for registering Appium as a node in Selenium Grid 4",
   "keywords": [
     "grid",
@@ -32,6 +32,7 @@
     "zeromq": "^6.5.0"
   },
   "devDependencies": {
+    "@dlenroc/appium-roku-driver": "^0.13.1",
     "@tsconfig/node20": "^20.1.6",
     "@tsconfig/strictest": "^2.0.5",
     "pkgroll": "^2.15.4",

@@ -117,7 +117,7 @@ export class Node {
               .post(`${options.prefix}/session`)
               .send({
                 capabilities: {
-                  firstMatch: [],
+                  firstMatch: [{}],
                   alwaysMatch: req.body.desiredCapabilities,
                 },
               });
